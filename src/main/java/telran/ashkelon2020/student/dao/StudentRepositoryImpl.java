@@ -11,7 +11,7 @@ import telran.ashkelon2020.student.model.Student;
 public class StudentRepositoryImpl implements StudentRepository {
 
 	Map<Integer, Student> students = new ConcurrentHashMap<>();
-	
+		
 	@Override
 	public boolean addStudent(Student student) {
 		return students.putIfAbsent(student.getId(), student) == null;

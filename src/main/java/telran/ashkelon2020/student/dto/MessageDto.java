@@ -1,20 +1,15 @@
 package telran.ashkelon2020.student.dto;
 
-import java.util.Map;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class StudentResponseDTO {
-	Integer id;
-	String name;
-	Map<String, Integer> scores;
+public class MessageDto {
+	String message;
+	String payload;
 }

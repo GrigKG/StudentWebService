@@ -1,5 +1,6 @@
 package telran.ashkelon2020.student.service;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +16,14 @@ import telran.ashkelon2020.student.model.Student;
 public class StudentServiceImp implements StudentService {
 	@Autowired
 	StudentRepository studentRepository;
-
+	
+	@Autowired
+	ModelMapper modelMapper;
+	
 	@Override
 	public boolean addStudent(StudentDTO studentDTO) {
-		Student student = new Student(studentDTO.getId(), studentDTO.getName(), studentDTO.getPassword());
+		Student student = modelMapper.map(studentDTO, Student.class);
+		//Student student = new Student(studentDTO.getId(), studentDTO.getName(), studentDTO.getPassword());
 		return studentRepository.addStudent(student);
 	}
 
@@ -26,31 +31,22 @@ public class StudentServiceImp implements StudentService {
 	public StudentResponseDTO findStudent(int id) {
 		Student student = studentRepository.findStudentById(id);
 		if (student == null) return null;
-		else return StudentResponseDTO.builder()
-				.id(id)
-				.name(student.getName())
-				.scores(student.getScores())
-				.build();
+		else return modelMapper.map(student, StudentResponseDTO.class);
+			//return StudentResponseDTO.builder().id(id).name(student.getName()).scores(student.getScores()).build();
 	}
 
 	@Override
 	public StudentResponseDTO deleteStudent(int id) {
 		Student student = studentRepository.deleteStudent(id);
 		if (student == null) return null;
-		else return StudentResponseDTO.builder()
-				.id(id)
-				.name(student.getName())
-				.scores(student.getScores())
-				.build();
+		else return modelMapper.map(student, StudentResponseDTO.class);
+			//return StudentResponseDTO.builder().id(id).name(student.getName()).scores(student.getScores()).build();
 	}
 	@Override
 	public StudentDTO updateStudent(int id, StudentUppDTO studentUppDTO) {
 		Student student = studentRepository.updateStudent(id, studentUppDTO.getName(), studentUppDTO.getPassword());
-		return StudentDTO.builder()
-				.id(id)
-				.name(student.getName())
-				.password(student.getPassword())
-				.build();
+		return modelMapper.map(student, StudentDTO.class); 
+				//StudentDTO.builder().id(id).name(student.getName()).password(student.getPassword()).build();
 	}
 	@Override
 	public Boolean AddScoreToStudent(int id, ScoreDTO scoreDTO) {
