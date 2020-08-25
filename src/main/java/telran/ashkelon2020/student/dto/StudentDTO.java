@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,5 +13,5 @@ public class StudentDTO {
 	Integer id;
 	String name;
 	String password;
-	
+
 }

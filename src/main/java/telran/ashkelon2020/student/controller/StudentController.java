@@ -56,5 +56,20 @@ public class StudentController {
 		return messageingServices.stream().map(s -> s.sendMessage(message)).collect(Collectors.toList());
 	}
 	
+	@GetMapping("/student/name/{name}")
+	public List<StudentResponseDTO>findStudentsByName(@PathVariable String name) {
+		return studentService.findStudentsByName(name);
+	}
+	
+	@PostMapping("/quantity/students")
+	public long studentQuantity(@RequestBody List<String> names) {
+		return studentService.studentQuantity(names);
+	}
+	
+	@GetMapping("/students/exam/{exam}/minscore/{score}")
+	public List<StudentResponseDTO> findStudentByExamScore(@PathVariable String exam, @PathVariable("score") int minScore){
+		return studentService.findStudentByExamScore(exam, minScore);
+		
+	}
 	
 }
